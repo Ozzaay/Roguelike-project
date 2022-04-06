@@ -99,14 +99,14 @@ def save_character(chars : list()):
         save_string = f"{name}/{health}/{armor}\n"
         save_list.append(save_string)
         
-    with open("saved_characters.txt", "w", encoding="utf8") as f:
+    with open("saved_game.txt", "w", encoding="utf8") as f:
         for line in save_list:
             f.write(line)
-        print("Characters has been saved!")
+        print("Your game has been saved!")
 
 def load_characters():
     characters = []
-    with open("saved_characters.txt", "r", encoding="utf8") as f:
+    with open("saved_game.txt", "r", encoding="utf8") as f:
         for line in f.readlines():
             attributes = line.split("/")
             char = Character(attributes[0],

@@ -52,8 +52,8 @@ if __name__ == "__main__":
         round +=1
     
     if len(enemies) == 0:
-        print("The players won!")
-        print("Would you like to save the remaining characters?")
+        print("You Defeated the enemy!")
+        print("Would you like to save your current game?")
         save_progress = input("(y/n): ")
         if save_progress == "y":
             save_character(players)
@@ -61,5 +61,5 @@ if __name__ == "__main__":
             print("No progress was saved.")
         
     elif len(players) == 0:
-        print("The Goblins won!")
+        print("You Died")
     
