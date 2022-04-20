@@ -14,7 +14,7 @@ class Weapon:
         return self.damage
 
 # BRYTER MOT STANDARD
-GOBLIN_WEAPONS = [Weapon("Rusty Cleaver", 2),
+ENEMY_WEAPONS =  [Weapon("Rusty Cleaver", 2),
                   Weapon("Rusty Spear", 3),
                   Weapon("Stone Axe", 1)]        
 
@@ -63,13 +63,13 @@ class Character:
     def get_attributes(self):
         return self.name, self.health, self.armor
 
-class Goblin:
+class Enemy:
     
     def __init__(self, health, armor, id):
         self.health = health
         self.armor = armor
         self.id = id
-        self.weapon = choice(GOBLIN_WEAPONS)
+        self.weapon = choice(ENEMY_WEAPONS)
         self.attack = self.weapon.get_damage()
         
     def __str__(self) -> str:

@@ -1,4 +1,4 @@
-from resources import Character, Goblin, save_character, load_characters, create_character
+from resources import Character, Enemy, save_character, load_characters, create_character
 from random import randint, shuffle, choice
 
 def fight(players : list, enemies : list):
@@ -17,7 +17,7 @@ def fight(players : list, enemies : list):
         
         if target.get_health() == 0:
             print(f"{target.get_name()} has died!")
-            if type(target) == Goblin:
+            if type(target) == Enemy:
                 enemies.remove(target)
             else:
                 players.remove(target)
@@ -42,7 +42,7 @@ if __name__ == "__main__":
             
     amount_of_goblins = int(input("How many goblins do you want to fight?: "))
     for i in range(amount_of_goblins):
-        enemies.append(Goblin(randint(10, 15), randint(0, 2), i+1))
+        enemies.append(Enemy(randint(10, 15), randint(0, 2), i+1))
     
     round = 1
     while len(enemies) != 0 and len(players) != 0:
