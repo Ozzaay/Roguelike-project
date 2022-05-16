@@ -1,131 +1,316 @@
-# imports
-from random import randint, choice
+import random
+from tkinter import N
+import os
+################## Items #########################
+class Item: ### Sets Item super class
+    def __init__(self, name, price, count, description):
+        self.name = self
+        self.price = price
+        self.count = count
+        self.description = description
+    def __str__(self): #description
+        return (str(self.name) + ": " + str(self.price) + "-Gold, " + str(self.count) + "-left")
+    def pack(self, user, backpack):
+       backpack.append(self)
 
-# global variables
+class SuperTonic(Item):
+    def __init__(self):
+        self.name = "Super Tonic" #name
+        self.count = 5 #how many are in the store
+        self.price = 20*((self.count-6) * (-1)) #price incrimented by how many are left
+        self.description = "Brings your character back to max health.(Usable in battle)" #description of useage
+    def use(self, user, enemy): 
+        user.health = user.max
+
+class HolyHandGrenade(Item):
+    def __init__(self):
+        self.name = "Holy Hand Grenade"
+        self.count = 25
+        self.price = 20
+        self.description = "Thous shalt count to three, no more, no less. (Never misses and does 15 damage, for use in a battle)"
+    def use(self, user, enemy):
+        enemy.health = enemy.health - 15
+        
+class ArmorPlate(Item):
+    def __init__(self):
+        self.name = "Armor"
+        self.count = 5
+        self.price = 20*((self.count-6) * (-1))
+        self.description = "Instant: Adds two armor to your character. (each point of armor negates one damage per attack)"
+    def pack(self, user, backpack):
+        user.armor = user.armor + 2
+
+class Nurse(Item):
+    def __init__(self):
+        self.name = "NURSE!"
+        self.count = 9999
+        self.price = 10
+        self.description = "Instant: Our realm famous fairy medical staff will heal you up here and now. No refunds. (brings health back to max)"
+    def pack(self, user, backpack):
+        user.health = user.max
+
+class ProtienShake(Item):
+    def __init__(self):
+        self.name = "Protien shake"
+        self.count = 15
+        self.price = 20 + ((self.count-15)*5) 
+        self.description = "Instant: Adds 5 to your max health and 5 to your current health."
+    def pack(self, user, backpack):
+        user.max = user.max + 5
+        user.health = user.health +5
 
 
-# classes
-class Weapon:
-    def __init__(self, name, damage) -> None:
-        self.name = name
-        self.damage = damage
-    
-    def get_damage(self):
-        return self.damage
+class Axe(Item):
+    def __init__(self):
+        self.name = "Axe"
+        self.count = 1
+        self.price = 10
+        self.description = "Instant: AND MY AXE... for +1 power."
+    def pack(self, user, backpack):
+        user.power = user.power + 1
 
-# BRYTER MOT STANDARD
-ENEMY_WEAPONS =  [Weapon("Rusty Cleaver", 2),
-                  Weapon("Rusty Spear", 3),
-                  Weapon("Stone Axe", 1)]        
+class Winchester(Item):
+    def __init__(self):
+        self.name = "Winchester"
+        self.count = 1
+        self.price = 25
+        self.description = "Instant: Good ol' Winchester rifle, for those long shots... and +2 power."
+    def pack(self, user, backpack):
+        user.power = user.power + 2
 
-class Character:
-    
-    def __init__(self, name, health, armor):
+class MagicMissilelauncher(Item):
+    def __init__(self):
+        self.name = "Magic Missile Launcher"
+        self.count = 1
+        self.price = 40
+        self.description = "Instant: All the magic missiles you could ever want! Dont let it get dispelled! (+3 to power)"
+    def pack(self, user, backpack):
+        user.power = user.power + 3
+
+class LightSaber(Item):
+    def __init__(self):
+        self.name = "Light Saber"
+        self.count = 1
+        self.price = 55
+        self.description = "Instant: Batteries and force crystal sold seperately. (+4 power)"
+    def pack(self, user, backpack):
+        user.power = user.power + 4
+
+class Hire_DeadPool(Item):
+    def __init__(self):
+        self.name = "Wade Wilson"
+        self.count = 1
+        self.price = 150
+        self.description = "Instant: Otherwise known as Deadpool.. He will fight with you.. for a price. (+10 power)"
+    def pack(self, user, backpack):
+        user.power = user.power + 10
+#################################################
+
+
+################# charachters ###################
+class Charachter:
+    def __init__(self, name, health, power, level): # charachter stats
         self.name = name
         self.health = health
-        self.armor = armor
-        self.generate_weapon()
-        self.attack = self.weapon.get_damage()
-        
-    def __str__(self) -> str:
-        return f"Name: {self.name}\nHealth: {self.health}\nAttack: {self.attack}\nArmor: {self.armor}"
-    
-    def generate_weapon(self):
-        random_weapon = randint(0, 100)
-        if random_weapon < 20: self.weapon = Weapon("Shortsword", 3)
-        elif random_weapon >= 20 and random_weapon < 40: self.weapon = Weapon("Broadsword", 5)
-        elif random_weapon >= 40 and random_weapon < 60: self.weapon = Weapon("Small Knife", 1)
-        elif random_weapon >= 60 and random_weapon < 80: self.weapon = Weapon("Spear", 2)
-        elif random_weapon >= 80 and random_weapon < 90: self.weapon = Weapon("Halberd", 4) 
-        elif random_weapon >= 90 and random_weapon < 95: self.weapon = Weapon("Morning Star", 4)
-        elif random_weapon == 96: self.weapon = Weapon("Atiesh", 50)
-        elif random_weapon == 97: self.weapon = Weapon("Excalibur", 15)
-        elif random_weapon == 98: self.weapon = Weapon("Axe of Dargo", 10)
-        elif random_weapon == 99: self.weapon = Weapon("Sword of Khaine", 30)
-        elif random_weapon == 100: self.weapon = Weapon("Frostmourne", 20)
-        else: self.weapon = Weapon("Fists", 1)
-    
-    def take_damage(self, damage):
-        relative_damage = damage - self.armor
-        if relative_damage > 0:
-            self.health -= relative_damage
-        if self.health < 0: self.health = 0
-    
-    def get_attack(self): # tidigare damage
-        return self.attack
+        self.max = health
+        self.power = power
+        self.level = 1
 
-    def get_health(self):
-        return self.health
-    
-    def get_name(self):
-        return self.name
-    
-    def get_attributes(self):
-        return self.name, self.health, self.armor
+    def __str__(self):
+        print(self.name + ": " + self.health + "hp, " + self.power + "pw, " + self.evade + "ev, " + self.armor + "ar") # shows char stats
 
-class Enemy:
+    def print_status(self):
+        print ("The {} has {} health and {} power.".format(self.name, self.health, self.power)) # shows char stats
+ 
+    def alive(self): # determines if char is alive after an attack
+        if self.health > 0:
+            return True
+        else:
+            return False
     
-    def __init__(self, health, armor, id):
-        self.health = health
-        self.armor = armor
-        self.id = id
-        self.weapon = choice(ENEMY_WEAPONS)
-        self.attack = self.weapon.get_damage()
-        
-    def __str__(self) -> str:
-        return f"Goblin #{self.id}\nHealth: {self.health}\nAttack: {self.attack}\nArmor: {self.armor}"
-    
-    
-    def take_damage(self, damage):
-        relative_damage = damage - self.armor
-        if relative_damage > 0:
-            self.health -= relative_damage
-        if self.health < 0: self.health = 0
+    def attack(self, enemy):    # determines damage a char does on any given attack
+        miss = random.randint(1, 100)
+        if 1 < miss < (enemy.evade * 5):
+            pow("The enemy missed!")
+        else:
+            if enemy.armor > self.power:
+                    pow("The attack doesnt go through your armor!")
+            else:
+                damage = (self.power- enemy.armor)
+                enemy.health = enemy.health - damage
+                print ("The {} does {} dammage to the {}. The {} has {} health left.").format(self.name, damage, enemy.name, enemy.name, enemy.health)
 
-    def get_health(self):
-        return self.health
-    
-    def get_attack(self):
-        return self.attack
-    
-    def get_name(self):
-        return f"Goblin #{self.id}"
-    
-# functions
-def save_character(chars : list()):
-    save_list = []
-    for character in chars:
-        name, health, armor = character.get_attributes()
-        save_string = f"{name}/{health}/{armor}\n"
-        save_list.append(save_string)
-        
-    with open("saved_game.txt", "w", encoding="utf8") as f:
-        for line in save_list:
-            f.write(line)
-        print("Your game has been saved!")
+ ### each item is a subclass of the superclass item and is formatted similarly to the first ####
+class Hero(Character):
+    def __init__(self):
+        self.name = "hero"
+        self.max = 20
+        self.health = 20
+        self.power = 5
+        self.evade = 1
+        self.armor = 0
+        self.gold = 20
+        self.level = 1
+    def attack(self, enemy):
+        crit = random.randint(1, 10)
+        miss = random.randint(1, 100)
+        reflect = random.randint(1,8)
+        if 1 < miss < (enemy.evade * 5):
+            pow("You missed!")
+        else:
+            if crit < 3:
+                if (enemy.armor > (self.power*2)):
+                    pow("It doesnt go through the enemies armor!")
+                else:
+                    damage = (self.power*2 -enemy.armor)
+                    pow ("Critical Strike!")
+                    enemy.health = enemy.health - damage
+            else:
+                if enemy.armor > self.power:
+                    pow("It doesnt go through the enemies armor!")
+                else:
+                    damage = (self.power- enemy.armor)
+                    enemy.health = enemy.health - damage
+                    print ("The hero does {} damage to the {}. The {} has {} health left.".format(damage, enemy.name, enemy.name, enemy.health))
+            if isinstance(enemy, FireEmp):
+                self.health = self.health - 1
+                pow ("The hero is hurt by the flames. He takes one damage.")
+            if isinstance(enemy, RockGolem) and reflect == 1:
+                self.health = self.health - (self.power/2)
+                pow("The rock golem's hard skin makes your sword bounce back doing half your power as damage top you!")
+    def __str__(self):
+        evdpct = self.evade*5
+        return ("| Health: {}\n| Max-Health: {}\n| Power: {}\n| Evade: {}({}%)\n| Armor: {}\n| Gold: {}".format(self.health, self.max, self.power, self.evade, evdpct, self.armor, self.gold ))
 
-def load_characters():
-    characters = []
-    with open("saved_game.txt", "r", encoding="utf8") as f:
-        for line in f.readlines():
-            attributes = line.split("/")
-            char = Character(attributes[0],
-                             int(attributes[1]),
-                             int(attributes[2]))
-            
-            characters.append(char)
-    return characters    
+class Medic(Character):
+    def __init__(self, level):
+        self.name = "Witch Doctor"
+        self.health = 10 + (10*.1*level)
+        self.max = 10 + (10*.1*level)
+        self.power = 2 + (2*.1*level)
+        self.evade = 2 + (2*.1*level)
+        self.armor = 0 + (0*.1*level)
+        self.gold = 10 + (5*.2*level)
+        self.level = 1
+    def attack(self, enemy):
+        miss = random.randint(1, 100)
+        recover = random.randint(1, 10)
+        if recover < 3 and self.health < 9:
+            self.health = self.health + 2
+            pow("The witch doctor cures his Wounds! (+2 hp)")
+        if 1 < miss < (enemy.evade * 5):
+            pow("The Wich Doctor missed!")
+        else:
+            if enemy.armor > self.power:
+                pow("It doesnt go throught the your armor!")
+            else:
+                damage = (self.power - enemy.armor)
+                enemy.health = enemy.health - damage
+                print ("The Medic does {} damage to the {}. The {} has {} health left.").format(damage, enemy.name, enemy.name, enemy.health)
+    def descripty(self):
+        print("You hear a witch doctor's cackle coming from a dark corner of the cave. Prepare for a fight.")
 
-def create_character():
-    print("Welcome to the character creator!")
-    name = input("What is your character called?: ")
-    health = randint(10, 30)
-    armor = randint(0, 5)
+class Shadow(Character):  
+    def __init__(self, level):
+        self.name = "shadow"
+        self.health = 1 + (1*.1*level)
+        self.max = 1 + (1*.1*level)
+        self.power = 1 + (2*.1*level)
+        self.evade = 18 
+        self.armor = 0 + (1*.1*level)
+        self.gold = 10 + (5*.2*level)
+        self.level = 1
+    def descripty(self):
+        print("You dont hear anything, but the shadow on the wall you see moving definately isn't yours. Without warning it lunges forward.")
+
+class Goblin(Character):
+    def __init__(self, level):
+        self.name = 'Goblin'
+        self.health = 6 + (12*.1*level)
+        self.max = 6 + (12*.1*level)
+        self.power = 2 + (2*.1*level)
+        self.evade = 3 + (3*.1*level)
+        self.armor = 0 + (3*.1*level)
+        self.gold = 10 + (5*.2*level)
+        self.level = 1
+    def descripty(self):
+        print("You see a simple goblin waddle forth.")
+
+class Zombie(Character):
+    def __init__(self, level):
+        self.name = 'zombie'
+        self.health = 10 + (10*.1*level)
+        self.max = 10 + (10*.1*level)
+        self.power = 1 + (1*.1*level)
+        self.evade = 2 + (2*.1*level)
+        self.armor = -1 + (-1*.1*level)
+        self.level = 1 + (1*.1*level)
+    def alive():
+        return True
+    def description(self):
+        print(" ")
+    def pic(self):
+        " "
+
+class Slime(Character):
+    def __init__(self, level):
+        self.name = 'Slime'
+        self.health = 10 + (15*.1*level)
+        self.max = 10 + (15*.1*level)
+        self.power = 1 + (2*.1*level)
+        self.evade = 2 + (3*.1*level)
+        self.armor = -1 + (1*.1*level)
+        self.gold = 10 + (5*.2*level)
+        self.level = 1 
+    def descripty(self):
+        print("An amorpheous blop drops from the ceiling of the cave and lands at your feet. I wouldn't step in that if I were you...")
+
+class FireEmp(Character):
+    def __init__(self, level):
+        self.name = "Fire Imp"
+        self.health = 6 + (10*.1*level)
+        self.max = 6 + (10*.1*level)
+        self.power = 3 + (6*.1*level)
+        self.evade = 4 + (4*.1*level)
+        self.armor = 0 + (0*.1*level)
+        self.gold = 10 + (5*.2*level)
+        self.level = 1
+    def attack(self, enemy):
+        miss = random.randint(1, 100)
+        if 1 < miss < (enemy.evade * 5):
+            pow("The Fire Imp missed!")
+        else:
+            if enemy.armor > self.power:
+                pow("It doesnt go throught the your armor!")
+            else:
+                preburn = self.power - enemy.armor
+                damage = self.power + 1 - enemy.armor   
+                enemy.health = enemy.health - damage
+    def descripty(self):
+        print ("An Imp leaps fromt he fire of a torch lit on the wall, it looks like it wont be letting you pass by freely.")   
     
-    return_char = Character(name, health, armor)
-    
-    print()
-    print(return_char)
-    print("Character has been created")
-    return return_char
-    
+class RockGolem(Character):
+    def __init__(self, level):
+        self.name = "Rock Golem"
+        self.health = 15 + (20*.1*level)
+        self.max = 15 + (20.1*level)
+        self.power = 1 + (6*.1*level)
+        self.evade = 0 
+        self.armor = 2 + (6*.1*level)
+        self.gold = 10 + (5*.2*level)
+        self.level = 1
+    def descripty(self):
+        print("A place in the cave wall begins to move. Great, they have a cave troll.... wait it's just a rock golem. Prepare yourself!")
+
+
+class DarkWizard(Character):
+    def __init__(self):
+        self.name = "Dark Wizard"
+        self.health = 250
+        self.max = 250
+        self.power = 15
+        self.evade = 8
+        self.armor = 10
+        self.level = 1
+    def descripty(self):
+        print("The man you have been searching for, who started all of this madness. you charge forward and scream, FOR DEMACIA!!!!   .. oh wait, is that you gandalf?")
