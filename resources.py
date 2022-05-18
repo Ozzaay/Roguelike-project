@@ -284,7 +284,7 @@ class FireEmp(Character):
                 damage = self.power + 1 - enemy.armor   
                 enemy.health = enemy.health - damage
     def description(self):
-        print ("An Imp leaps fromt he fire of a torch lit on the wall, it looks like it wont be letting you pass by freely.")   
+        print ("An Imp leaps from the fire of a torch lit on the wall, it looks like it wont be letting you pass by freely.")   
     
 class RockGolem(Character):
     def __init__(self, level):

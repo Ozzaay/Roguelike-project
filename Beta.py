@@ -1,5 +1,4 @@
 import random
-import sys
 from resources import ArmorPlate, Axe, DarkWizard, FireEmp, Goblin, Hero, Hire_DeadPool, HolyHandGrenade, LightSaber, MagicMissilelauncher, Medic, Nurse, ProteinShake, RockGolem, Shadow, Slime, SuperTonic, Winchester
 
 
@@ -61,7 +60,7 @@ def fight_sequence(enemy, hero, backpack):
             if hero.alive() == False:
                 print("You died :(")
                 cleanup()                                                                           
-                sys.exit()
+
 
 
 def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
@@ -129,7 +128,7 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
         choice = int(input(">>"))
     except ValueError:
         banner("Please only use integers")
-        store(a, b, c, d, e, f, g, h, i, j, hero, backpack) #determines what item the usser wants to look at
+        store(a, b, c, d, e, f, g, h, i, j, hero, backpack) #determines what item the user wants to look at
     if choice == 1:
         want_to_buy(a, backpack)
     elif choice == 2:
@@ -174,7 +173,7 @@ def main(): # game intro (Game starts here)
     if start.upper() == "START": 
         print("\nYou step into the dungeon and see your first monster!")
     else:
-        print("I dont care that you didnt stype start. This is a monster game. *The game maker pushes your hero into the dungeon and a monster appears!")
+        print("I dont care that you didnt type start. This is a dungeoncrawler game. *The game maker pushes your hero into the dungeon and a monster appears!")
     backpack = []
     floor_count = 1
     thishero = Hero()
