@@ -219,15 +219,15 @@ def main(): # game intro (Game starts here)
         store(super_tonic, holy_hand_grande, armor_plate, nurse, protein_shake, axe, winchester, magic_missile_launcher, lightsaber, hire_deadpool, thishero, backpack) #calls store
         floor_count += 1
 
-    cleanup()
-    print("Congratulations you beat the final level")   
-    input("press any key to continue...")
-    print("BUT CAN YOU DEFEAT THE DARK WIZARD?")
-    fight_sequence(dark_wizard, thishero, backpack)
+        if floor_count == 8:
+            cleanup()
+            print("Congratulations you beat the final level")   
+            input("press any key to continue...")
+            print("BUT CAN YOU DEFEAT THE DARK WIZARD?")
+            fight_sequence(dark_wizard, thishero, backpack)
     
-    print("You Win!!!")
-    cleanup()
-    
+            print("You Win!!!")
+            cleanup()
 
 
 main()
