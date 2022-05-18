@@ -1,22 +1,15 @@
 import random
 import sys
-import os
-from tkinter import N
 from resources import ArmorPlate, Axe, DarkWizard, FireEmp, Goblin, Hero, Hire_DeadPool, HolyHandGrenade, LightSaber, MagicMissilelauncher, Medic, Nurse, ProtienShake, RockGolem, Shadow, Slime, SuperTonic, Winchester
+
 
 def cleanup():
     input("**Press enter to continue...")
-    os.system("clear")
 
 def banner(txt):
     print ("*")*(len(txt)+4)
     print ("* " + txt + " *")
     print ("*")*(len(txt)+4)
-
-def pow(txt):
-    print ("^")*(len(txt)+4)
-    print ("| " + txt + " |")
-    print ("^")*(len(txt)+4)
 
 def fight_sequence(enemy, hero, backpack):
     print(" ")
@@ -24,6 +17,8 @@ def fight_sequence(enemy, hero, backpack):
     cleanup()
 
     while enemy.alive() and hero.alive():# fight sequence options
+
+
         print("___________________________________________________________________________________")
         hero.print_status()
         enemy.print_status()
@@ -31,25 +26,11 @@ def fight_sequence(enemy, hero, backpack):
         print(" ")
         print("__________________________")
         print("| What do you want to do? |")
-        print("| 1. Fight {}             ").format(enemy.name)
-        print("| 2. Use item             |")
+        print("| 1. Fight                ")
         print("| 3. Get status of hero   |")
         print("|_________________________|")
-        try:
-            
-
-            if input == '':
-                print("try again")
-                # banner("Please only use integers")
-                # fight_sequence(enemy, hero, backpack)
-            else:
-                pass
-        except ValueError:
-            banner("Please only use integers")
-            # fight_sequence(enemy, hero, backpack)
-        print()
-        if input == 1:
-            os.system("clear")
+        choice = input("What would you like to do? ")
+        if  choice =="1":
             hero.attack(enemy)
             if enemy.alive() == False:
                 print("You Defeated the Enemy!")
@@ -58,23 +39,21 @@ def fight_sequence(enemy, hero, backpack):
                 hero.gold += enemy.gold
                 print("                  \' You found {} gold!   ".format(enemy.gold))
                 print("                  ............................")
-        elif input == 2: 
-            os.system("clear")
+        elif choice =="åäöåp":
             print(" ______________________________")
             print("| Choose an item number to use |")
             print(" ______________________________")
             backpack.sort()
             for i in range(len(backpack)):
                 print(str(i) + ". " + backpack[i].name)
-            used = int(input(">>"))
+            used = int(choice(">>"))
             backpack[used].use(hero, enemy)
             del backpack[used]
-        elif input == 3:
-            os.system("clear")
+        elif choice =="2":
             print(hero)
             print(" If your health goes to 0, you die.\nYour max health is the most you can have right now at full streangth.\nYour power is how much damage you deal before armor is involved.\nYour evade is the percentage chance that an attacking enemy will miss you completely.\nEach point of armor will protect you from one point of damage when an enemy attacks you.\noYur fold will be used to buy items in the store.")
         else:
-            print("please try again")
+            print("Please Try again")
 
         if enemy.alive():
             # Enemy attacks hero
@@ -87,8 +66,7 @@ def fight_sequence(enemy, hero, backpack):
 
 def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
 
-    def sure(): # function for asking if you want to leave a menu or go back to the store
-        os.system("clear")
+    def sure(): # function for asking if you want to leave a menu or go back to the store 
         print (" __________________________________________")
         print ("| Are you sure you want to leave? (Y or N) |")
         print (" __________________________________________")
@@ -104,8 +82,6 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
             sure()
         
     def want_to_buy(item, backpack): # function for determining if you want to buy an item you have chosen or not 
-        os.system("clear")
-        item.pic()
         print(item.description)
         print(" =============================================================================")
         print(" _____________________________________ ")
@@ -113,13 +89,12 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
         print("| Type \'2\' To go back to the store. |")
         print("| Type \'3\' To exit the store.       |")
         print(" _____________________________________ ")
-        try:    # options to determine the results from what you pick
+        try:    # options to determine he results from what you pick
             choice = int(input(">>"))
         except ValueError:
             banner("\nPlease only use integers")
             store(a, b, c, d, e, f, g, h, i, j, hero, backpack)
         if choice == 1:
-            os.system("clear")
             if item.count == 0:
                 banner("This item is out of stock.")
                 store (a, b, c, d, e, f, g, h, i, j, hero, backpack)
@@ -133,15 +108,12 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
                 hero.gold -= item.price
                 store (a, b, c, d, e, f, g, h, i, j, hero, backpack)
         elif choice == 2:
-            os.system("clear")
             store(a, b, c, d, e, f, g, h, i, j, hero, backpack)
         elif choice == 3:
-            os.system("clear")
             sure()
         elif input == "":
             banner("Invalid input {}, try again: ".format(input))
         else:
-            os.system("clear")
             banner("Invalid input, please try again: ")
             store(a, b, c, d, e, f, g, h, i, j, hero, backpack)
     
@@ -179,7 +151,6 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
     elif choice == 10:
         want_to_buy(j, backpack)
     elif choice == 11:
-        os.system("clear")
         print(hero)
 
         store(a, b, c, d, e, f, g, h, i, j, hero, backpack)
@@ -188,7 +159,6 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
     elif input == "":
         banner("Invalid input {}, try again: ".format(input))
     else:
-        os.system("clear")
         banner("Invalid input, please try again: ")
         store(a, b, c, d, e, f, g, h, i, j, hero, backpack)
 
@@ -203,10 +173,8 @@ def main(): # game intro (Game starts here)
     start = input("Type \'start\' to start the game and take your first steps into the dungeons first floor!:  ")
     if start.upper() == "START": 
         print("\nYou step into the dungeon and see your first monster!")
-        os.system("clear")
     else:
         print("I dont care that you didnt stype start. This is a monster game. *The game maker pushes your hero into the dungeon and a monster appears!")
-        os.system("clear")
     backpack = []
     floor_count = 1
     thishero = Hero()

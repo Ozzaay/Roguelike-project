@@ -1,6 +1,6 @@
+from pprint import pprint
 import random
-from tkinter import N
-import os
+
 ################## Items #########################
 class Item: ### Sets Item super class
     def __init__(self, name, price, count, description):
@@ -108,7 +108,7 @@ class Hire_DeadPool(Item):
 
 
 ################# charachters ###################
-class Charachter:
+class Character:
     def __init__(self, name, health, power, level): # charachter stats
         self.name = name
         self.health = health
@@ -131,16 +131,15 @@ class Charachter:
     def attack(self, enemy):    # determines damage a char does on any given attack
         miss = random.randint(1, 100)
         if 1 < miss < (enemy.evade * 5):
-            pow("The enemy missed!")
+            print("The enemy missed!")
         else:
             if enemy.armor > self.power:
-                    pow("The attack doesnt go through your armor!")
+                    print("The attack doesnt go through your armor!")
             else:
                 damage = (self.power- enemy.armor)
                 enemy.health = enemy.health - damage
-                print ("The {} does {} dammage to the {}. The {} has {} health left.").format(self.name, damage, enemy.name, enemy.name, enemy.health)
+                print ("The {} does {} dammage to the {}. The {} has {} health left.".format(self.name, damage, enemy.name, enemy.name, enemy.health))
 
- ### each item is a subclass of the superclass item and is formatted similarly to the first ####
 class Hero(Character):
     def __init__(self):
         self.name = "hero"
@@ -156,28 +155,28 @@ class Hero(Character):
         miss = random.randint(1, 100)
         reflect = random.randint(1,8)
         if 1 < miss < (enemy.evade * 5):
-            pow("You missed!")
+            print("You missed!")
         else:
             if crit < 3:
                 if (enemy.armor > (self.power*2)):
-                    pow("It doesnt go through the enemies armor!")
+                    print("It doesnt go through the enemies armor!")
                 else:
                     damage = (self.power*2 -enemy.armor)
-                    pow ("Critical Strike!")
+                    print("Critical Strike!")
                     enemy.health = enemy.health - damage
             else:
                 if enemy.armor > self.power:
-                    pow("It doesnt go through the enemies armor!")
+                    print("It doesnt go through the enemies armor!")
                 else:
                     damage = (self.power- enemy.armor)
                     enemy.health = enemy.health - damage
                     print ("The hero does {} damage to the {}. The {} has {} health left.".format(damage, enemy.name, enemy.name, enemy.health))
             if isinstance(enemy, FireEmp):
                 self.health = self.health - 1
-                pow ("The hero is hurt by the flames. He takes one damage.")
+                print("The hero is hurt by the flames. He takes one damage.")
             if isinstance(enemy, RockGolem) and reflect == 1:
                 self.health = self.health - (self.power/2)
-                pow("The rock golem's hard skin makes your sword bounce back doing half your power as damage top you!")
+                print("The rock golem's hard skin makes your sword bounce back doing half your power as damage top you!")
     def __str__(self):
         evdpct = self.evade*5
         return ("| Health: {}\n| Max-Health: {}\n| Power: {}\n| Evade: {}({}%)\n| Armor: {}\n| Gold: {}".format(self.health, self.max, self.power, self.evade, evdpct, self.armor, self.gold ))
@@ -188,7 +187,7 @@ class Medic(Character):
         self.health = 10 + (10*.1*level)
         self.max = 10 + (10*.1*level)
         self.power = 2 + (2*.1*level)
-        self.evade = 2 + (2*.1*level)
+        self.evade = 0 + (2*.1*level)
         self.armor = 0 + (0*.1*level)
         self.gold = 10 + (5*.2*level)
         self.level = 1
@@ -197,17 +196,17 @@ class Medic(Character):
         recover = random.randint(1, 10)
         if recover < 3 and self.health < 9:
             self.health = self.health + 2
-            pow("The witch doctor cures his Wounds! (+2 hp)")
+            print("The witch doctor cures his Wounds! (+2 hp)")
         if 1 < miss < (enemy.evade * 5):
-            pow("The Wich Doctor missed!")
+            print("The Wich Doctor missed!")
         else:
             if enemy.armor > self.power:
-                pow("It doesnt go throught the your armor!")
+                print("It doesnt go throught the your armor!")
             else:
                 damage = (self.power - enemy.armor)
                 enemy.health = enemy.health - damage
-                print ("The Medic does {} damage to the {}. The {} has {} health left.").format(damage, enemy.name, enemy.name, enemy.health)
-    def descripty(self):
+                print ("The Medic does {} damage to the {}. The {} has {} health left.".format(damage, enemy.name, enemy.name, enemy.health))
+    def description(self):
         print("You hear a witch doctor's cackle coming from a dark corner of the cave. Prepare for a fight.")
 
 class Shadow(Character):  
@@ -216,11 +215,11 @@ class Shadow(Character):
         self.health = 1 + (1*.1*level)
         self.max = 1 + (1*.1*level)
         self.power = 1 + (2*.1*level)
-        self.evade = 18 
+        self.evade = 3 
         self.armor = 0 + (1*.1*level)
         self.gold = 10 + (5*.2*level)
         self.level = 1
-    def descripty(self):
+    def description(self):
         print("You dont hear anything, but the shadow on the wall you see moving definately isn't yours. Without warning it lunges forward.")
 
 class Goblin(Character):
@@ -233,7 +232,7 @@ class Goblin(Character):
         self.armor = 0 + (3*.1*level)
         self.gold = 10 + (5*.2*level)
         self.level = 1
-    def descripty(self):
+    def description(self):
         print("You see a simple goblin waddle forth.")
 
 class Zombie(Character):
@@ -249,8 +248,6 @@ class Zombie(Character):
         return True
     def description(self):
         print(" ")
-    def pic(self):
-        " "
 
 class Slime(Character):
     def __init__(self, level):
@@ -262,7 +259,7 @@ class Slime(Character):
         self.armor = -1 + (1*.1*level)
         self.gold = 10 + (5*.2*level)
         self.level = 1 
-    def descripty(self):
+    def description(self):
         print("An amorpheous blop drops from the ceiling of the cave and lands at your feet. I wouldn't step in that if I were you...")
 
 class FireEmp(Character):
@@ -278,39 +275,39 @@ class FireEmp(Character):
     def attack(self, enemy):
         miss = random.randint(1, 100)
         if 1 < miss < (enemy.evade * 5):
-            pow("The Fire Imp missed!")
+            print("The Fire Imp missed!")
         else:
             if enemy.armor > self.power:
-                pow("It doesnt go throught the your armor!")
+                print("It doesnt go throught the your armor!")
             else:
                 preburn = self.power - enemy.armor
                 damage = self.power + 1 - enemy.armor   
                 enemy.health = enemy.health - damage
-    def descripty(self):
+    def description(self):
         print ("An Imp leaps fromt he fire of a torch lit on the wall, it looks like it wont be letting you pass by freely.")   
     
 class RockGolem(Character):
     def __init__(self, level):
         self.name = "Rock Golem"
-        self.health = 15 + (20*.1*level)
-        self.max = 15 + (20.1*level)
-        self.power = 1 + (6*.1*level)
+        self.health = 15 + (12*.1*level)
+        self.max = 15 + (12.1*level)
+        self.power = 1 + (3*.1*level)
         self.evade = 0 
-        self.armor = 2 + (6*.1*level)
+        self.armor = 2 + (2*.1*level)
         self.gold = 10 + (5*.2*level)
         self.level = 1
-    def descripty(self):
+    def description(self):
         print("A place in the cave wall begins to move. Great, they have a cave troll.... wait it's just a rock golem. Prepare yourself!")
 
 
 class DarkWizard(Character):
     def __init__(self):
         self.name = "Dark Wizard"
-        self.health = 250
-        self.max = 250
-        self.power = 15
-        self.evade = 8
+        self.health = 50
+        self.max = 50
+        self.power = 3
+        self.evade = 0
         self.armor = 10
         self.level = 1
-    def descripty(self):
+    def description(self):
         print("The man you have been searching for, who started all of this madness. you charge forward and scream, FOR DEMACIA!!!!   .. oh wait, is that you gandalf?")
