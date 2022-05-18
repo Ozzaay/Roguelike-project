@@ -49,9 +49,9 @@ class Nurse(Item):
     def pack(self, user, backpack):
         user.health = user.max
 
-class ProtienShake(Item):
+class ProteinShake(Item):
     def __init__(self):
-        self.name = "Protien shake"
+        self.name = "Protein shake"
         self.count = 15
         self.price = 20 + ((self.count-15)*5) 
         self.description = "Instant: Adds 5 to your max health and 5 to your current health."
@@ -297,7 +297,7 @@ class RockGolem(Character):
         self.gold = 10 + (5*.2*level)
         self.level = 1
     def description(self):
-        print("A place in the cave wall begins to move. Great, they have a cave troll.... wait it's just a rock golem. Prepare yourself!")
+        print("A place in the cave wall begins to move. Great, they a cave troll.... wait it's just a rock golem. Prepare yourself!")
 
 
 class DarkWizard(Character):

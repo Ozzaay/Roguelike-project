@@ -1,6 +1,6 @@
 import random
 import sys
-from resources import ArmorPlate, Axe, DarkWizard, FireEmp, Goblin, Hero, Hire_DeadPool, HolyHandGrenade, LightSaber, MagicMissilelauncher, Medic, Nurse, ProtienShake, RockGolem, Shadow, Slime, SuperTonic, Winchester
+from resources import ArmorPlate, Axe, DarkWizard, FireEmp, Goblin, Hero, Hire_DeadPool, HolyHandGrenade, LightSaber, MagicMissilelauncher, Medic, Nurse, ProteinShake, RockGolem, Shadow, Slime, SuperTonic, Winchester
 
 
 def cleanup():
@@ -183,7 +183,7 @@ def main(): # game intro (Game starts here)
     armor_plate = ArmorPlate()
     holy_hand_grande = HolyHandGrenade()
     nurse = Nurse()
-    protien_shake = ProtienShake()
+    protein_shake = ProteinShake()
     axe = Axe()
     winchester = Winchester()
     magic_missile_launcher = MagicMissilelauncher()
@@ -217,7 +217,7 @@ def main(): # game intro (Game starts here)
         print("Floor #{} +".format(floor_count))
         print(" ")
         fight_sequence(enemy, thishero, backpack) #calls fight
-        store(super_tonic, holy_hand_grande, armor_plate, nurse, protien_shake, axe, winchester, magic_missile_launcher, lightsaber, hire_deadpool, thishero, backpack) #calls store
+        store(super_tonic, holy_hand_grande, armor_plate, nurse, protein_shake, axe, winchester, magic_missile_launcher, lightsaber, hire_deadpool, thishero, backpack) #calls store
         floor_count += 1
 
     cleanup()

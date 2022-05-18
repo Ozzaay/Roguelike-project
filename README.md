@@ -1,4 +1,4 @@
-# RuneCrawler
+# RuneCrawler v 2.0
 
 ## Languages Used
 
@@ -13,77 +13,80 @@
 
 1. clone the github repo
 ```cmd
-    git clone https://github.com/ditt_
+    git clone https://github.com/Ozzaay/Runecrawler
 ```
 
+## Usage
 
-## Code conventions (Kodkonvention)
+***To use the code you simply need to run the code in your terminal after making sure that both the main file and the resource file are accessable***
 
-***Detta är överkurs, men här kan du lista exempelvis hur filerna ska vara strukturerade, hur namngivning och kommentarer skrivs och massvis av annat. (Kan vara bra att förtydliga att PEP8 efterföljs.)***
+## Example
 
-## Hur det fungerar (Usage)
-
-***Använd detta utrymme för att visa användbara exempel av hur projektet kan användas. Skärmdumpar, kodexempel och demos passar in här. Du kan också länka till fler resurser, exempelvis en dokumentation.***
-
-## Example (exempelkörning)
-
-***Visa gärna, genom ett kodblock från din konsol, eller en bild, hur en exempelkörning kan gå till.***
-
-## To do/Roadmap (Att göra/Plan)
+## To do/Roadmap
 
 ***Det kan vara nyttigt att få andra som läser om projektet att få veta vad du saknar just nu i programmet. Gör detta gärna genom en lista där färdiga saker strukits över.***
 Exempel:
 
-- [x] Påbörja exempelreadme
-- [ ] Hitta fler exempelrubriker
-- [ ] Kom på bättre exempel
-- [ ] Ge exempel på projekt med fullständig readme
-- [ ] Ytterligare språk
-    - [x] Svenska
-    - [ ] Engelska
+- [x] Make Combat work
+- [x] Create boss
+- [ ] General Balancing
+- [ ] Make items work
+- [ ] More content
 
 ## Changelog
 
-***Det kan vara rimligt att inkludera vad som har förändrats genom de olika iterationerna som ditt projekt gått igenom. Detta kan antingen göras i din README eller så kan du inkludera en CHANGELOG.md.***
+### Version 1.0
 
-***I changelogen ska varje rubrik vara en version. Under varje version bör du inkludera vad du lagt till eller ändrat på (added or changed) under en rubrik samt vad du tagit bort (removed) under en annan. Exempel: ***
+- Source code created
+- Enemies designed
+- General ideas figured out
 
-### Version 1.0.1
+### Version 1.1
 
-#### Tillagt eller ändrat
+- Combat designed
+- More Enemies
+- More items added
+- Removed unnecessary code
 
-- La till avsnitt om changelog
-- La till avsnitt om kodkonventioner
+### Version 1.5
 
-#### Borttaget
+- Combat Rework
+- Final boss designed
+- Story added
+- Rogue like elements removed due to complications with features
 
-- Tog bort tidigare rubriker som inte såg bra ut.
-- Tog bort felaktig rubrik om innehållsförteckning
+### Version 2.0
 
-## Att bidra (Contribution)
+- Converted to a more classic dungeoncrawler style
+- Unnecessery code removed
+- Tf2 Coconut.jpg added
 
-***Inom programmeringsvärlden är det ofta populärt att man vill utveckla andras projekt och bidra till förbättring. För att underlätta detta är det bra om det i READMEn förklaras om det är tillåtet, och om det är det hur en går till väga för att kunna göra det. Detta avsnitt skulle se ut som följande:*** 
+## Issues
 
-Då bedömning ännu ej är gjord på uppgiften så tillåts inga pull requests. Så fort bedömning är gjord kommer detta tillåtas.  
+Some items are currently bugged and will crash the game if used, therefore only use these allowed items:
 
-Vid större förändringar önskar jag att en issue öppnas för diskussion om vad som ska förändras.
+- armorplate
+- nurse
+- protein shake
+- Axe
+- Magic Missile launcher
+- winchester
+- lightsaber
+- deadpool
 
-## Licens (License)
+## Contribution
 
-[MIT](https://choosealicense.com/licenses/mit/)
+Feel free to use this code however you want, be that modifing it or using it out right.
 
-## Contact (Kontakt)
+## Contact
 
-***Skriv här hur du blir kontaktad ifall det finns frågor om projektet***
+Ossian - Ossianth@gmail.com
 
-Ditt Namn - @din_twitter (eller discord? annan plattform?) - email@example.com
+Project link: https://github.com/Ozzaay/Runecrawler
 
-Projektlänk: https://github.com/ditt_anv/reponamn
+## Acknowledgments
 
-## Erkännanden (Acknowledgments)
-
-***Här kan du lista resurser eller personer som har hjälpt dig med projektet. Det kan vara länkar till tutorials eller dokumentation, eller bara någon annans profil som du vill uppmärksamma. Har du inget som behöver tas här så kan du strunta i rubriken. ***
-
-- Mamma och Pappa
-- [En jättebra låt](https://www.youtube.com/watch?v=cvh0nX08nRw)
-- Dan Hermansson
+- Niclas Lund
+- w3schools.com
+- Soma Szabo
+- Stackoverflow.com
