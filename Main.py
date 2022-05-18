@@ -200,7 +200,7 @@ def main(): # game intro (Game starts here)
 
 
     while floor_count < 25:
-        #enemies1   set by level increase
+        #enemies set by level increase
         medic = Medic(floor_count)
         shadow = Shadow(floor_count)
         goblin = Goblin(floor_count)
