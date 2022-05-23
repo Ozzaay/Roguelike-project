@@ -11,6 +11,13 @@ def banner(txt):
     print ("*")*(len(txt)+4)
 
 def fight_sequence(enemy, hero, backpack):
+    """_The fight sequences and how the battle order works_
+
+    Args:
+        enemy (_type_): _The enemies you can encounter during combat_
+        hero (_type_): _The player character_
+        backpack (_type_): _The items you currently have in your inventory_
+    """
     print(" ")
     enemy.description()
     cleanup()
@@ -64,6 +71,22 @@ def fight_sequence(enemy, hero, backpack):
 
 
 def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
+    """_summary_
+
+    Args:
+        a (_type_): _Super Tonic: an item that lets you heal back to full hp during combat_
+        b (_type_): _Holy Hand Grenade: An item you can use during combat to deal damage to your enemy_
+        c (_type_): _Armor: A instant upgrade that decreases the damage you take_
+        d (_type_): _NURSE!: An item that instanty heals you back to full hp_
+        e (_type_): _Protein shake: An item that increases your max hp_
+        f (_type_): _Axe: an item that slightly increases your damage_
+        g (_type_): _Winchester: An item the increases your damage_
+        h (_type_): _Magic Missile Launcher: An item that greatly increases your damage_
+        i (_type_): _Light sabre: An item that increases your damage to the maximum_
+        j (_type_): _Wade Wilson: A mercenary that helps you deal more damage_
+        hero (_type_): _Your player character: let's you see your characters current status, such as health, damage and armor stats_
+        backpack (_type_): _Your item bag that lets you see what items you currently have_
+    """
 
     def sure(): # function for asking if you want to leave a menu or go back to the store 
         print (" __________________________________________")
@@ -81,6 +104,12 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
             sure()
         
     def want_to_buy(item, backpack): # function for determining if you want to buy an item you have chosen or not 
+        """_summary_
+
+        Args:
+            item (_type_): _The item you are about to buy_
+            backpack (_type_): _your item bag where said item will be put_
+        """
         print(item.description)
         print(" =============================================================================")
         print(" _____________________________________ ")
@@ -88,7 +117,9 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
         print("| Type \'2\' To go back to the store. |")
         print("| Type \'3\' To exit the store.       |")
         print(" _____________________________________ ")
-        try:    # options to determine he results from what you pick
+
+        # options to determine he results from what you pick
+        try:    
             choice = int(input(">>"))
         except ValueError:
             banner("\nPlease only use integers")
@@ -129,10 +160,8 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
     except ValueError:
         banner("Please only use integers")
         store(a, b, c, d, e, f, g, h, i, j, hero, backpack) #determines what item the user wants to look at
-    if choice == 1:
-        want_to_buy(a, backpack)
-    elif choice == 2:
-        want_to_buy(b, backpack)
+    if choice == 1: want_to_buy(a, backpack)
+    elif choice == 2: want_to_buy(b, backpack)
     elif choice == 3:
         want_to_buy(c, backpack)
     elif choice == 4:
@@ -162,7 +191,7 @@ def store(a, b, c, d, e, f, g, h, i, j, hero, backpack): # open tbhe store
         store(a, b, c, d, e, f, g, h, i, j, hero, backpack)
 
 
-def main(): # game intro (Game starts here)
+def main(): 
     print("Welcome to Rune Crawler")
     input("press any key to continue...")
     print(" You are a Hero of The great empire Lenuria, and a DARK Wizard has threatened your homeland. The wizard has been sending hoards of monsters")
@@ -177,6 +206,7 @@ def main(): # game intro (Game starts here)
     backpack = []
     floor_count = 1
     thishero = Hero()
+
     #items set
     super_tonic = SuperTonic()
     armor_plate = ArmorPlate()
@@ -188,6 +218,7 @@ def main(): # game intro (Game starts here)
     magic_missile_launcher = MagicMissilelauncher()
     lightsaber = LightSaber()
     hire_deadpool = Hire_DeadPool()
+
     #enemies set
     medic = Medic(floor_count)
     shadow = Shadow(floor_count)
@@ -229,4 +260,5 @@ def main(): # game intro (Game starts here)
     cleanup()
 
 
-main()
+if __name__ == "__main__":
+    main()
